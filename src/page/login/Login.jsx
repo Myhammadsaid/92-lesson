@@ -13,7 +13,7 @@ const Login = () => {
     if (isSuccess) {
       localStorage.setItem("x-auth-token", data.data.token);
       localStorage.setItem("user-data", JSON.stringify(data.data.user));
-      navigate("/auth/admin");
+      navigate("admin");
     }
   }, [isSuccess]);
 

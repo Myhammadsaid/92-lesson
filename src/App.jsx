@@ -9,7 +9,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/auth" element={<Auth />}>
+        <Route path="/" element={<Auth />}>
           <Route path="admin" element={<Admin />} />
         </Route>
         <Route path="/products/:id" element={<SingleRoute />} />
