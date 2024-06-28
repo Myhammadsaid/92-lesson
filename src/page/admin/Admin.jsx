@@ -64,7 +64,7 @@ const Admin = () => {
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone</th>
-                {user.role === "owner" ? <th>Delete</th> : <></>}
+                {user?.role === "owner" ? <th>Delete</th> : <></>}
               </tr>
             </thead>
             <tbody>{UserItem}</tbody>

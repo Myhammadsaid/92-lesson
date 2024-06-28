@@ -1,46 +1,28 @@
-import React, { useState } from "react";
-import axios from "../../api/index";
+import React, { useState, useEffect } from "react";
+import { usePostSignInMutation } from "../../context/api/UserApi";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setToken, setUser } from "../../context/slice/authSlice";
 import "./Login.css";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    UserName: "",
-    password: "",
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [UserName, setUsername] = useState("john32");
+  const [password, setPassword] = useState("12345678");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [signUp, { data, isLoading, isSuccess }] = usePostSignInMutation();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const res = await axios.post("/auth/sign-in", formData);
-      localStorage.setItem("x-auth-token", res.data.data.token);
-      localStorage.setItem("user-data", JSON.stringify(res.data.data.user));
-
-      dispatch(setToken(res.data.data.token));
-      dispatch(setUser(res.data.data.user));
-
+  useEffect(() => {
+    if (isSuccess && data && data.data) {
+      localStorage.setItem("x-auth-token", data.data.token);
+      localStorage.setItem("user-data", JSON.stringify(data.data.user));
       navigate("/auth/admin");
-    } catch (error) {
-      console.error("Login error:", error);
-    } finally {
-      setIsLoading(false);
     }
-  };
+  }, [isSuccess]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signUp({
+      UserName,
+      password,
+    });
   };
 
   return (
@@ -53,12 +35,12 @@ const Login = () => {
               src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg"
               alt="facebook"
             />
-            <form onSubmit={handleLogin} className="login__form">
+            <form onSubmit={handleSubmit} className="login__form">
               <input
                 required
                 className="login__input"
-                value={formData.UserName}
-                onChange={handleChange}
+                value={UserName}
+                onChange={(e) => setUsername(e.target.value)}
                 name="UserName"
                 type="text"
                 placeholder="UserName"
@@ -66,8 +48,8 @@ const Login = () => {
               <input
                 required
                 className="login__input"
-                value={formData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 name="password"
                 type="password"
                 placeholder="Password"
