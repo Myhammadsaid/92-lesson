@@ -1,0 +1,8 @@
+@media (max-width: 990px) {
+  .login {
+    margin-top: 50px !important;
+  }
+  .login__style {
+    gap: 50px !important;
+  }
+}

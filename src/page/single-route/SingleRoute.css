@@ -1,0 +1,43 @@
+.single {
+  padding: 20px 0;
+}
+
+.single__style {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.single__style img {
+  border: 1px solid #000;
+}
+
+.single__content {
+  max-width: 500px;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 20px;
+}
+
+.single__text {
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.single__par {
+  font-size: 18px;
+}
+
+.single__price {
+  font-size: 20px;
+}
+
+.single__btn {
+  width: 150px;
+  padding: 10px 0;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  font-size: 16px;
+}
